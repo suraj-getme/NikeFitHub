@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import {useNavigate } from 'react-router-dom'
 
 const products = [
   {
@@ -28,6 +29,7 @@ const products = [
 ]
 
 function Products() {
+  const navigate = useNavigate()
   return (
     <div className="container mx-auto px-4 py-20">
       <h1 className="text-4xl font-bold mb-8 text-blue-800">Our Products</h1>
@@ -44,7 +46,7 @@ function Products() {
             <h2 className="text-xl font-bold mb-2 text-blue-600">{product.name}</h2>
             <p className="text-gray-600 mb-4">{product.description}</p>
             {/* <p className="text-2xl font-bold mb-4">${product.price}</p> */}
-            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+            <button onClick={()=> navigate('/contact')} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
               Contact Us 
             </button>
           </motion.div>
