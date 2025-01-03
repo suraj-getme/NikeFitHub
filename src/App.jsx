@@ -122,9 +122,52 @@
 
 
 
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+// import { ThemeProvider } from './contexts/ThemeContext';
+// import { Helmet } from 'react-helmet';
+// import Header from './components/Header'
+// import Footer from './components/Footer'
+// import Home from './pages/Home'
+// import About from './pages/About'
+// import Programs from './pages/Programs'
+// import Products from './pages/Products'
+// import Contact from './pages/Contact'
+
+// function App() {
+//   return (
+//     <ThemeProvider>
+//       <Router>
+//         <div className="flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+//           <Helmet>
+//             <title>FitJourney - Your Personal Fitness Companion</title>
+//             <meta name="description" content="Achieve your fitness goals with personalized workout plans, expert nutrition guidance, and a supportive community at FitJourney." />
+//             <meta name="keywords" content="fitness, personal trainer, workout plans, nutrition, community" />
+//             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//             <link rel="canonical" href="https://www.fitjourney.com" />
+//           </Helmet>
+//           <Header />
+//           <main className="flex-grow">
+//             <Routes>
+//               <Route path="/" element={<Home />} />
+//               <Route path="/about" element={<About />} />
+//               <Route path="/programs" element={<Programs />} />
+//               <Route path="/products" element={<Products />} />
+//               <Route path="/contact" element={<Contact />} />
+//             </Routes>
+//           </main>
+//           <Footer />
+//         </div>
+//       </Router>
+//     </ThemeProvider>
+//   )
+// }
+
+// export default App
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ThemeProvider } from './contexts/ThemeContext';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { Helmet } from 'react-helmet';
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -134,35 +177,45 @@ import Programs from './pages/Programs'
 import Products from './pages/Products'
 import Contact from './pages/Contact'
 
+function AppContent() {
+  const { isDarkMode } = useTheme();
+  
+  return (
+    <Router>
+      <div className={`flex flex-col min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''} bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark`}>
+        <Helmet>
+          <title>FitJourney - Your Personal Fitness Companion</title>
+          <meta name="description" content="Achieve your fitness goals with personalized workout plans, expert nutrition guidance, and a supportive community at FitJourney." />
+          <meta name="keywords" content="fitness, personal trainer, workout plans, nutrition, community" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <link rel="canonical" href="https://www.fitjourney.com" />
+        </Helmet>
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-white">
-          <Helmet>
-            <title>FitJourney - Your Personal Fitness Companion</title>
-            <meta name="description" content="Achieve your fitness goals with personalized workout plans, expert nutrition guidance, and a supportive community at FitJourney." />
-            <meta name="keywords" content="fitness, personal trainer, workout plans, nutrition, community" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <link rel="canonical" href="https://www.fitjourney.com" />
-          </Helmet>
-          <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/programs" element={<Programs />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
+      <AppContent />
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;
+
+
 
 

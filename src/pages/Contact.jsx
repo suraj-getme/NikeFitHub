@@ -1,25 +1,8 @@
-// function Contact() {
-//     return (
-//       <div className="container mx-auto px-4 py-20">
-//         <h1 className="text-4xl font-bold mb-8 text-blue-800">Contact Us</h1>
-//         <p className="text-lg text-gray-700 mb-8">
-//           Have questions or need support? We're here to help! Reach out to us using the contact information below.
-//         </p>
-//         <div className="space-y-4">
-//           <p><strong>Email:</strong> nikeshgetme@gmail.com</p>
-//           <p><strong>Phone:</strong> 8530471071</p>
-//           <p><strong>Address:</strong> Gajanan Nagar, Wardha City, FC 442001</p>
-//         </div>
-//       </div>
-//     )
-//   }
-  
-//   export default Contact
-  
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { MapPin, Phone, Mail, ChevronDown, ChevronUp } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const faqs = [
   {
@@ -47,6 +30,8 @@ function Contact() {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,10 +43,20 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    console.log('Form submitted:', formData);
-    // Reset form after submission
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    emailjs.sendForm('service_4cb9jt6', 'template_tmt3y6n', e.target, 'P78A8-xH6utMvhTAd')
+      .then((result) => {
+        console.log(result.text);
+        setFormData({ name: '', email: '', message: '' });
+        setSubmissionStatus({ success: true, message: 'Message sent successfully!' });
+      }, (error) => {
+        console.log(error.text);
+        setSubmissionStatus({ success: false, message: 'Failed to send message. Please try again.' });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -122,13 +117,20 @@ function Contact() {
                 required
               ></textarea>
             </div>
+            {isSubmitting && <p className="mt-4 text-gray-600 dark:text-gray-400">Sending message...</p>}
+            {submissionStatus && (
+              <p className={`mt-4 ${submissionStatus.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {submissionStatus.message}
+              </p>
+            )}
             <motion.button
               type="submit"
               className="w-full bg-primary-light dark:bg-primary-dark text-white font-bold py-2 px-4 rounded hover:bg-opacity-90 transition duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </motion.button>
           </form>
         </motion.div>
@@ -156,7 +158,7 @@ function Contact() {
             <h3 className="text-xl font-semibold mb-4 text-secondary-light dark:text-secondary-dark">Find Us</h3>
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.2412648750455!2d-73.98784368459395!3d40.74844797932847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1629794729807!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4075.713722693519!2d78.59500977552776!3d20.75856379700344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd47f2393f324e9%3A0x1e0f08e000a3536a!2sGajanan%20Nagar%20Wardha!5e1!3m2!1sen!2sin!4v1735888262214!5m2!1sen!2sin" 
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

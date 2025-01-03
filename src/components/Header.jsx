@@ -112,6 +112,90 @@
 
 // export default Header
 
+// import React, { useState, useContext } from 'react';
+// import { Link } from 'react-router-dom';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { ThemeContext } from '../contexts/ThemeContext';
+// import { Menu, X, Moon, Sun } from 'lucide-react';
+
+// function Header() {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+
+//   const toggleDrawer = () => setIsOpen(!isOpen);
+
+//   const menuItems = [
+//     { to: '/', text: 'Home' },
+//     { to: '/about', text: 'About' },
+//     { to: '/programs', text: 'Programs' },
+//     { to: '/products', text: 'Products' },
+//     { to: '/contact', text: 'Contact' },
+//   ];
+
+//   return (
+//     <header className="bg-background-light dark:bg-background-dark shadow-md transition-colors duration-300">
+//       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+//         <Link to="/" className="text-2xl font-bold text-primary-light dark:text-primary-dark">
+//           FitJourney
+//         </Link>
+//         <div className="hidden md:flex space-x-6">
+//           {menuItems.map((item) => (
+//             <motion.div key={item.to} whileHover={{ scale: 1.1 }}>
+//               <Link to={item.to} className="text-text-light dark:text-text-dark hover:text-primary-light dark:hover:text-primary-dark">
+//                 {item.text}
+//               </Link>
+//             </motion.div>
+//           ))}
+//         </div>
+//         <div className="flex items-center space-x-4">
+//           <motion.button
+//             onClick={toggleTheme}
+//             className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
+//             whileHover={{ scale: 1.1 }}
+//             whileTap={{ scale: 0.9 }}
+//           >
+//             {isDarkMode ? <Sun className="text-yellow-400" /> : <Moon className="text-gray-700" />}
+//           </motion.button>
+//           <div className="md:hidden">
+//             <motion.button
+//               onClick={toggleDrawer}
+//               className="text-text-light dark:text-text-dark"
+//               whileHover={{ scale: 1.1 }}
+//               whileTap={{ scale: 0.9 }}
+//             >
+//               {isOpen ? <X size={24} /> : <Menu size={24} />}
+//             </motion.button>
+//           </div>
+//         </div>
+//       </nav>
+//       <AnimatePresence>
+//         {isOpen && (
+//           <motion.div
+//             initial={{ opacity: 0, height: 0 }}
+//             animate={{ opacity: 1, height: 'auto' }}
+//             exit={{ opacity: 0, height: 0 }}
+//             transition={{ duration: 0.3 }}
+//             className="md:hidden bg-background-light dark:bg-background-dark"
+//           >
+//             {menuItems.map((item) => (
+//               <Link
+//                 key={item.to}
+//                 to={item.to}
+//                 className="block py-2 px-4 text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-800"
+//                 onClick={toggleDrawer}
+//               >
+//                 {item.text}
+//               </Link>
+//             ))}
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//     </header>
+//   );
+// }
+
+// export default Header;
+
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -195,6 +279,8 @@ function Header() {
 }
 
 export default Header;
+
+
 
 
 

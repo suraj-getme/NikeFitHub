@@ -281,7 +281,7 @@ function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <img
-              src="/path/to/hero-image.jpg"
+              src="https://media.istockphoto.com/id/612262390/photo/body-building-workout.jpg?s=612x612&w=0&k=20&c=zsRgRf3tuStA7dN5bdFS_x1ud-XdU-dJC7B6iuq_AZk="
               alt="Fitness Journey"
               className="rounded-lg shadow-2xl"
             />
